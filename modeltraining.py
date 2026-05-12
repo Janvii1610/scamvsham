@@ -58,3 +58,9 @@ predictions = model.predict(x_test)
 
 # Accuracy
 print("Accuracy:", accuracy_score(y_test, predictions))
+
+
+import pickle
+
+pickle.dump(model, open("model.pkl", "wb"))
+pickle.dump(cv, open("vectorizer.pkl", "wb"))
