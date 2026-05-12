@@ -25,3 +25,8 @@ This project performs analysis on spam and ham messages using Python.
 
 ### Spam WordCloud
 ![WordCloud](visuals/spam_wordcloud.png)
+
+
+
+## LIVE DEMO 
+[click here](https://scamvsham-fqbw4rrb3bgvuanjqr43qr.streamlit.app/)
