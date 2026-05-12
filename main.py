@@ -32,4 +32,24 @@ plt.show()
 
 
 
+from wordcloud import WordCloud
+
+spam_words = ' '.join(df[df['label'] == 'spam']['message']) 
+spam_text = " ".join(spam_words)
+spam_wordcloud = WordCloud(width=800, height=400, background_color='white').generate(spam_text) 
+
+plt.figure(figsize=(10, 5))
+plt.imshow(spam_wordcloud)
+
+
+
+plt.axis('off')
+
+plt.title("Most common spam words ")
+
+plt.savefig("visuals/spam_wordcloud.png")
+
+
+plt.show()
+
 
