@@ -1,9 +1,13 @@
 import streamlit as st
 import pickle
+
+cv = pickle.load(open("vectorizer.pkl", "rb"))
+model = pickle.load(open("model.pkl", "rb"))
+
 st.set_page_config(
     page_title="AI Spam Detection System",
-    layout="centered")
-
+    layout="centered"
+)
 
 
 
