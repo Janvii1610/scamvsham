@@ -1,9 +1,8 @@
-
+import streamlit as st
+import pickle
 st.set_page_config(
     page_title="AI Spam Detection System",
-    layout="centered"
-)
-
+    layout="centered")
 
 
 
