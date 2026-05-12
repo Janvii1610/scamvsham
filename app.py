@@ -1,48 +1,57 @@
-import pandas as pd
-import streamlit as st
 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB
-
-# Load dataset
-df = pd.read_csv("data/spam.csv", encoding='latin-1')
-
-# Keep useful columns
-df = df[['v1', 'v2']]
-
-# Rename columns
-df.columns = ['label', 'message']
-
-# Input and output
-x = df['message']
-y = df['label']
-
-# Convert text into numbers
-cv = CountVectorizer()
-x = cv.fit_transform(x)
-
-# Split dataset
-x_train, x_test, y_train, y_test = train_test_split(
-    x, y, test_size=0.2, random_state=42
+st.set_page_config(
+    page_title="AI Spam Detection System",
+    layout="centered"
 )
 
-# Train model
-model = MultinomialNB()
-model.fit(x_train, y_train)
 
-# Streamlit UI
-st.title("Spam Message Detector")
 
+
+
+#Page title
+st.title("AI Spam Detection System")
+
+st.write(
+    "A machine learning web application that classifies SMS messages as spam or legitimate."
+)
+
+# Sidebar
+st.sidebar.title("Project Information")
+
+st.sidebar.write("""
+This application uses:
+- Natural Language Processing (NLP)
+- CountVectorizer
+- Naive Bayes Classification
+- Streamlit
+""")
+
+# Input box
 input_sms = st.text_area("Enter Message")
 
-if st.button("Predict"):
+# Predict button
+if st.button("Analyze Message"):
 
-    data = cv.transform([input_sms])
+    vector_input = cv.transform([input_sms])
 
-    prediction = model.predict(data)
+    prediction = model.predict(vector_input)
+
+    probability = model.predict_proba(vector_input)
+
+    spam_probability = probability[0][1] * 100
+    ham_probability = probability[0][0] * 100
 
     if prediction[0] == "spam":
-        st.error("🚨 Spam Message")
+        st.error("Spam message detected.")
     else:
-        st.success("✅ Ham Message")
+        st.success("Legitimate message detected.")
+
+    st.write(f"Spam Probability: {spam_probability:.2f}%")
+    st.write(f"Legitimate Probability: {ham_probability:.2f}%")
+
+# Footer
+st.markdown("---")
+
+st.caption(
+    "Built using Python, Scikit-learn, NLP, and Streamlit."
+)
